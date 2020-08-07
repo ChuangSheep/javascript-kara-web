@@ -4,11 +4,11 @@
       <v-row justify="center">
         <v-col cols="10" md="7">
           <v-card color="error">
-            <v-card-title>Opps, an error has occured.</v-card-title>
+            <v-card-title>{{$t("errorDialog.title")}}</v-card-title>
             <v-card-text>
               <v-row>
                 <v-col cols="12">
-                  <h3 class="white--text">Details</h3>
+                  <h3 class="white--text">{{$t("errorDialog.details")}}</h3>
                 </v-col>
                 <v-col cols="12">
                   <span>
@@ -20,17 +20,24 @@
                   <span class="white--text">{{mainMsg}}</span>
                   <br />
                   <span>
-                    <i>Your code editor may give you addtional information.</i>
+                    <i>{{$t("errorDialog.infoCodeEditor")}}</i>
                   </span>
                 </v-col>
                 <v-col cols="12">
-                  <span class="white--text italic" id="suggestion" v-html="suggestion"></span>
+                  <i18n
+                    id="suggestion"
+                    :path="suggestion.path"
+                    tag="span"
+                    class="white--text italic"
+                  >
+                    <a :href="suggestion.link" target="_blank">{{suggestion.linkText}}</a>
+                  </i18n>
                 </v-col>
               </v-row>
             </v-card-text>
             <v-card-actions>
-              <v-btn text @click="close">Close</v-btn>
-              <v-btn text @click="gotoCoding">Goto Coding</v-btn>
+              <v-btn text @click="close">{{$t("common.closeBtn")}}</v-btn>
+              <v-btn text @click="gotoCoding">{{$t("common.goto")}} Coding</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -69,7 +76,11 @@ export default {
       lineno: -1,
       colno: -1,
       errorLine: "",
-      suggestion: "",
+      suggestion: {
+        path: "",
+        link: "",
+        linkText: "",
+      },
     };
   },
   watch: {
@@ -85,6 +96,61 @@ export default {
       this.close();
       this.$router.push("/coding");
     },
+    getSuggestion(type, detail) {
+      const apiReferenceSite = "#";
+      const GithubIssueSite = "#";
+      const MDNJavascriptReferences = {
+        RefError_VarNotDefined:
+          "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined",
+        TypeError_AssignConstVar:
+          "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_const_assignment",
+        SyxError_UnexpToken: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unexpected_token",
+      };
+      let suggestion = {};
+      if (type === "TypeError") {
+        if (detail.includes("is not a function")) {
+          suggestion.path = "errorDialog.suggestions.TypeError_NotAFunc";
+          suggestion.link = apiReferenceSite;
+          suggestion.linkText = "Api References";
+        } else if (detail.toLowerCase().includes("assignment to const")) {
+          suggestion.path = "errorDialog.suggestions.TypeError_AssignConstVar";
+          suggestion.link = MDNJavascriptReferences.TypeError_AssignConstVar;
+          suggestion.linkText =
+            'Javascript Reference: TypeError - invalid assignment to const "x"';
+        }
+      } else if (type === "ReferenceError") {
+        if (detail.includes("is not defined")) {
+          suggestion.path = "errorDialog.suggestions.RefError_VarNotDefined";
+          suggestion.link = MDNJavascriptReferences.RefError_VarNotDefined;
+          suggestion.linkText =
+            "Javascript Reference: ReferenceError - Variable is not defined";
+        }
+      } else if (type === "SyntaxError") {
+        if (detail.toLowerCase().includes("unexpected token")) {
+          suggestion.path = "errorDialog.suggestions.SyxError_UnexpToken";
+          suggestion.link = MDNJavascriptReferences.SyxError_UnexpToken;
+          suggestion.linkText =
+            "Javascript Reference: SyntaxError - Unexpected token";
+        }
+      } else if (type === "GameLogicError") {
+        suggestion.path = "errorDialog.suggestions.GameLogicError";
+        suggestion.link = "#";
+        suggestion.linkText = "";
+      } else if (type === "GameKernalError") {
+        suggestion.path = "errorDialog.suggestions.GameKernalError.text";
+        suggestion.link = GithubIssueSite;
+        suggestion.linkText = `${this.$t("errorDialog.suggestions.GameKernalError.contact")}`;
+      }
+
+      // Fallback
+      if (suggestion.path == undefined) {
+        suggestion.path = "errorDialog.suggestions.fallback";
+        suggestion.link = "#";
+        suggestion.linkText = "";
+      }
+
+      return suggestion;
+    },
   },
   mounted() {
     // args: {errorStack, detail: {type, showMsg, lineno, colno, suggestion}}
@@ -94,7 +160,10 @@ export default {
       this.mainMsg = stack;
       this.lineno = args.detail.lineno;
       this.colno = args.detail.colno;
-      this.suggestion = args.detail.suggestion;
+      this.suggestion = this.getSuggestion(
+        args.detail.type,
+        args.errorStack.split("\n")[0]
+      );
 
       let code = localStorage.getItem("userCode");
       let lines = code.split("\n");

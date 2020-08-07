@@ -2,15 +2,22 @@
   <v-container>
     <v-row>
       <v-col cols="auto">
-        <h1>Coding</h1>
+        <h1>{{$t("coding.title")}}</h1>
       </v-col>
       <v-col class="btnPosition" cols="auto">
         <div>
           <v-col cols="auto" style="display: inline-block">
-            <v-btn @click="gotoPlayground" color="primary" id="backToPlayground">Goto Playground</v-btn>
+            <v-btn
+              @click="gotoPlayground"
+              color="primary"
+              id="backToPlayground"
+            >{{$t("common.goto")}} Playground</v-btn>
           </v-col>
           <v-col cols="auto" style="display: inline-block">
-            <v-btn :loading="isSelectingImport" @click="importWorld">Import Code</v-btn>
+            <v-btn :loading="isSelectingExport" @click="exportCode">{{$t("coding.exportCode")}}</v-btn>
+          </v-col>
+          <v-col cols="auto" style="display: inline-block">
+            <v-btn :loading="isSelectingImport" @click="importWorld">{{$t("coding.importCode")}}</v-btn>
             <input
               ref="codeUploader"
               class="d-none"
@@ -20,10 +27,7 @@
             />
           </v-col>
           <v-col cols="auto" style="display: inline-block">
-            <v-btn :loading="isSelectingExport" @click="exportCode">Export Code</v-btn>
-          </v-col>
-          <v-col cols="auto" style="display: inline-block">
-            <v-btn @click="clearEditor" color="error">Clear Editor</v-btn>
+            <v-btn @click="clearEditor" color="error">{{$t("coding.clearEditor")}}</v-btn>
           </v-col>
         </div>
       </v-col>
@@ -81,42 +85,6 @@ export default {
         "let kara;\n//If the kara is already put on the board by hand\nkara = getKaraInstance();\n//If the kara is not put on the board, uncomment the line below\n//kara = new Kara(1, 1);\n\n//Your code here\nkara.move();\n\n\n",
       isSelectingImport: null,
       isSelectingExport: null,
-      guideSteps: [
-        {
-          element: "#codeEditor",
-          popover: {
-            title: "1001011101",
-            description:
-              "This is the coding editor. By writing javascript code, you will be able to control kara to do almost everything. So, be <b>creative</b>!",
-            position: "top",
-          },
-        },
-        {
-          element: "#codeEditorThen",
-          popover: {
-            title: "And a lot more",
-            description:
-              "To let kara move: kara.move()<br>For more methods, see <a target='_blank' href='https://google.com'>full references here</a>.",
-            position: "top",
-          },
-        },
-        {
-          element: "#backToPlayground",
-          popover: {
-            title: "Time to go back",
-            description:
-              "After you finished writing your code, it's time to test it! Go to the Playground page and click the <i>Run</i> button we discussed before. ",
-            position: "bottom",
-            doneBtnText: "Go to Playground!",
-          },
-          onNext: () => {
-            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
-            firstTime.tour2 = false;
-            localStorage.setItem("firstTime", JSON.stringify(firstTime));
-            window.$app.$router.push("/playground");
-          },
-        },
-      ],
     };
   },
   watch: {
@@ -190,6 +158,41 @@ export default {
     gotoPlayground() {
       this.$router.push("/playground");
     },
+    getGuildStep() {
+      return [
+        {
+          element: "#codeEditor",
+          popover: {
+            title: `${this.$t("intro.tour2.1.title")}`,
+            description: `${this.$t("intro.tour2.1.description")}`,
+            position: "top",
+          },
+        },
+        {
+          element: "#codeEditorThen",
+          popover: {
+            title: `${this.$t("intro.tour2.2.title")}`,
+            description: `${this.$t("intro.tour2.2.description")}`,
+            position: "top",
+          },
+        },
+        {
+          element: "#backToPlayground",
+          popover: {
+            title: `${this.$t("intro.tour2.3.title")}`,
+            description: `${this.$t("intro.tour2.3.description")}`,
+            position: "bottom",
+            doneBtnText: `${this.$t("intro.tour2.3.doneBtnText")}`,
+          },
+          onNext: () => {
+            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+            firstTime.tour2 = false;
+            localStorage.setItem("firstTime", JSON.stringify(firstTime));
+            window.$app.$router.push("/playground");
+          },
+        },
+      ];
+    },
   },
   mounted() {
     if (localStorage.getItem("userCode") != "") {
@@ -202,7 +205,7 @@ export default {
     let firstTime = JSON.parse(localStorage.getItem("firstTime"));
     if (firstTime !== null) {
       if (firstTime.tour2) {
-        driver.defineSteps(this.guideSteps);
+        driver.defineSteps(this.getGuildStep());
         driver.start();
       }
     }

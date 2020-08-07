@@ -3,13 +3,13 @@
     <v-container>
       <v-row justify="start" @dragover.prevent @drop.prevent="handleDisposeDrop">
         <v-col cols="12" md="6" id="playground">
-          <h1>Playground</h1>
+          <h1>{{ $t("playground.title") }}</h1>
         </v-col>
         <v-spacer></v-spacer>
         <v-col md="2" id="worldName">
           <v-text-field
             v-model="worldName"
-            label="World Name"
+            :label="$t('playground.worldName')"
             :rules="rules.worldName"
             spellcheck="false"
           ></v-text-field>
@@ -26,10 +26,10 @@
                   color="primary"
                   @click="runCode"
                   :disabled="isEvaling"
-                >Run</v-btn>
+                >{{$t('playground.run')}}</v-btn>
               </div>
             </template>
-            <span>Your code is running</span>
+            <span>{{$t('playground.codeRunning')}}</span>
           </v-tooltip>
         </v-col>
         <v-col cols="auto">
@@ -37,14 +37,14 @@
             :loading="isSelectingExport"
             @click="exportWorld"
             :disabled="isEvaling"
-          >Export World</v-btn>
+          >{{$t('playground.exportWorld')}}</v-btn>
         </v-col>
         <v-col cols="auto">
           <v-btn
             :loading="isSelectingImport"
             @click="importWorld"
             :disabled="isEvaling"
-          >Import World</v-btn>
+          >{{$t('playground.importWorld')}}</v-btn>
           <input
             ref="worldUploader"
             class="d-none"
@@ -53,14 +53,20 @@
             @change="onFileChanged"
           />
         </v-col>
-        <v-col class="text-right">
+        <v-spacer></v-spacer>
+        <v-col cols="auto">
           <v-dialog v-model="dialog" max-width="600px" :disabled="isEvaling">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn class="mb-2" v-bind="attrs" v-on="on" :disabled="isEvaling">Resize</v-btn>
+              <v-btn
+                class="mb-2"
+                v-bind="attrs"
+                v-on="on"
+                :disabled="isEvaling"
+              >{{$t('playground.resize')}}</v-btn>
             </template>
             <v-card>
               <v-card-title>
-                <span class="headline">Change Playground Size</span>
+                <span class="headline">{{$t('playground.resizeDialog.title')}}</span>
               </v-card-title>
               <v-card-text>
                 <v-container>
@@ -68,7 +74,7 @@
                     <v-col class="text-right">
                       <v-text-field
                         v-model="dialogData.width"
-                        label="Width"
+                        :label="$t('playground.resizeDialog.width')"
                         :rules="rules.width"
                         type="number"
                         autofocus
@@ -77,7 +83,7 @@
                     <v-col cols="6">
                       <v-text-field
                         v-model="dialogData.height"
-                        label="Height"
+                        :label="$t('playground.resizeDialog.height')"
                         :rules="rules.height"
                         type="number"
                       ></v-text-field>
@@ -87,14 +93,23 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="saveSize" :disabled="!dataValid">Save</v-btn>
+                <v-btn color="blue darken-1" text @click="close">{{$t('common.closeBtn')}}</v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="saveSize"
+                  :disabled="!dataValid"
+                >{{$t('common.saveBtn')}}</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
         </v-col>
         <v-col cols="auto">
-          <v-btn color="error" @click="uResetWorld()" :disabled="isEvaling">Reset World</v-btn>
+          <v-btn
+            color="error"
+            @click="uResetWorld()"
+            :disabled="isEvaling"
+          >{{$t('playground.resetWorld')}}</v-btn>
         </v-col>
       </v-row>
 
@@ -206,7 +221,15 @@ import mashroomSvg from "@/assets/game-img/mashroom-64.svg";
 import treePng from "@/assets/game-img/tree-64.png";
 import treeSvg from "@/assets/game-img/tree-64.svg";
 
-let driver = new Driver();
+let driver = new Driver({
+  onReset: (e) => {
+    let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+    if (e.node.id === "runCode" && !firstTime.tour2) {
+      firstTime.tour3 = false;
+      localStorage.setItem("firstTime", JSON.stringify(firstTime));
+    }
+  },
+});
 
 export default {
   components: {
@@ -269,82 +292,6 @@ export default {
       mashroomSvg,
       treePng,
       treeSvg,
-      guideSteps1: [
-        {
-          element: "#playground",
-          popover: {
-            title: "Where it all starts",
-            description:
-              "This is the playground page. Here you can run your code and see how the kara moves. Also, you can put game objects on the canvas. ",
-            position: "right",
-            nextBtnText: "Start the tour",
-          },
-        },
-        {
-          element: "#worldName",
-          popover: {
-            title: "Name your own world",
-            description:
-              "You are able to give your world a name. This name will be used when you export your code and world. ",
-            position: "left",
-          },
-        },
-        {
-          element: "#canvas",
-          popover: {
-            title: "See your world",
-            description: "This is the world. Try to drag the kara on a block!",
-            position: "top",
-          },
-        },
-        {
-          element: "#gameboard",
-          popover: {
-            title: "Delete something",
-            description:
-              "To remove any object from your world, just right click on it. ",
-            position: "top",
-          },
-          onNext: () => {
-            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
-            firstTime.tour1 = false;
-            localStorage.setItem("firstTime", JSON.stringify(firstTime));
-          },
-        },
-        {
-          element: "#runCode",
-          popover: {
-            title: "Test it",
-            description:
-              "Clicking this button will execute the code you written in the Coding page. But now, let's <strong>go to the Coding page</strong> and write something awesome!",
-            position: "right",
-            doneBtnText: "Go to coding!",
-          },
-          onNext: () => {
-            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
-            firstTime.tour1 = false;
-            localStorage.setItem("firstTime", JSON.stringify(firstTime));
-            window.$app.$router.push("/coding");
-          },
-        },
-      ],
-      guideSteps2: [
-        {
-          element: "#runCode",
-          popover: {
-            title: "The end of the beginning",
-            description:
-              "Finally, we are at the end of our tour. Click the <i>Run</i> button, and look how kara moves. ",
-            position: "right",
-            closeBtnText: "Start your new journey",
-          },
-          onNext: () => {
-            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
-            firstTime.tour3 = false;
-            localStorage.setItem("firstTime", JSON.stringify(firstTime));
-          },
-        },
-      ],
     };
   },
   computed: {
@@ -526,10 +473,8 @@ export default {
     },
     runCode() {
       let firstTime = JSON.parse(localStorage.getItem("firstTime"));
-      if (firstTime.tour3) {
+      if (firstTime.tour3 && !firstTime.tour1) {
         driver.reset();
-        firstTime.tour3 = false;
-        localStorage.setItem("firstTime", JSON.stringify(firstTime));
       }
 
       let old = getDataAsXMLString();
@@ -591,10 +536,9 @@ export default {
       });
     },
     uResetWorld() {
-      this.$confirm(
-        "Are you sure that you want to reset the world?<br/>This CANNOT be undone.",
-        { title: "Are you sure?" }
-      ).then((res) => {
+      this.$confirm(`${this.$t("playground.confirmReset")}`, {
+        title: `${this.$t("playground.confirmTitle")}`,
+      }).then((res) => {
         if (res) {
           this.resetWorld();
           this.saveWorld();
@@ -620,6 +564,81 @@ export default {
         0,
         this.$root.$data.createdObjects.length
       );
+    },
+    getGuideStep1() {
+      return [
+        {
+          element: "#playground",
+          popover: {
+            title: `${this.$t("intro.tour1.1.title")}`,
+            description: `${this.$t("intro.tour1.1.description")}`,
+            position: "right",
+            nextBtnText: `${this.$t("intro.tour1.1.nextBtnText")}`,
+          },
+        },
+        {
+          element: "#worldName",
+          popover: {
+            title: `${this.$t("intro.tour1.2.title")}`,
+            description: `${this.$t("intro.tour1.2.description")}`,
+            position: "left",
+          },
+        },
+        {
+          element: "#canvas",
+          popover: {
+            title: `${this.$t("intro.tour1.3.title")}`,
+            description: `${this.$t("intro.tour1.3.description")}`,
+            position: "top",
+          },
+        },
+        {
+          element: "#gameboard",
+          popover: {
+            title: `${this.$t("intro.tour1.4.title")}`,
+            description: `${this.$t("intro.tour1.4.description")}`,
+            position: "top",
+          },
+          onNext: () => {
+            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+            firstTime.tour1 = false;
+            localStorage.setItem("firstTime", JSON.stringify(firstTime));
+          },
+        },
+        {
+          element: "#runCode",
+          popover: {
+            title: `${this.$t("intro.tour1.5.title")}`,
+            description: `${this.$t("intro.tour1.5.description")}`,
+            position: "right",
+            doneBtnText: `${this.$t("intro.tour1.5.doneBtnText")}`,
+          },
+          onNext: () => {
+            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+            firstTime.tour1 = false;
+            localStorage.setItem("firstTime", JSON.stringify(firstTime));
+            window.$app.$router.push("/coding");
+          },
+        },
+      ];
+    },
+    getGuideStep2() {
+      return [
+        {
+          element: "#runCode",
+          popover: {
+            title: `${this.$t("intro.tour3.1.title")}`,
+            description: `${this.$t("intro.tour3.1.description")}`,
+            position: "right",
+            closeBtnText: `${this.$t("intro.tour3.1.closeBtnText")}`,
+          },
+          onNext: () => {
+            let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+            firstTime.tour3 = false;
+            localStorage.setItem("firstTime", JSON.stringify(firstTime));
+          },
+        },
+      ];
     },
   },
   created() {
@@ -650,10 +669,10 @@ export default {
       let firstTime = JSON.parse(localStorage.getItem("firstTime"));
       if (firstTime !== null) {
         if (firstTime.tour1) {
-          driver.defineSteps(this.guideSteps1);
+          driver.defineSteps(this.getGuideStep1());
           driver.start();
         } else if (firstTime.tour3) {
-          driver.defineSteps(this.guideSteps2);
+          driver.defineSteps(this.getGuideStep2());
           driver.start();
         }
       }

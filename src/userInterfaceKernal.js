@@ -135,39 +135,6 @@ export function setDataFromXMLString(xmlString) {
   }
 }
 
-function getSuggestion(type, detail) {
-  const apiReferenceSite = "#";
-  const GithubIssueSite = "#";
-  const MDNJavascriptReferences = {RefError_VarNotDefined: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined", TypeError_AssignConstVar: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_const_assignment", SyxError_UnexpToken: ""};
-  let suggestion = "";
-  if (type === "TypeError") {
-    if (detail.includes("is not a function")) {
-      suggestion = `Have you typed your function name correctly? Maybe you want to have a look of our <a href='${apiReferenceSite}' target='_blank'>Api References</a>. `;
-    }
-    else if (detail.toLowerCase().includes("assignment to const")) {
-      suggestion = `Once you declare a variable as constant, you cannot change its value. <br /><a target="_blank" href="${MDNJavascriptReferences.TypeError_AssignConstVar}">Javascript Reference: TypeError - invalid assignment to const "x"`;
-    }
-  }
-  else if (type === "ReferenceError") {
-    if (detail.includes("is not defined")) {
-      suggestion = `Did you typed your variable or function name correctly? Or have you declared the variable before you use it? <br /><a target="_blank" href="${MDNJavascriptReferences.RefError_VarNotDefined}">Javascript Reference: ReferenceError - variable is not defined</a>`
-    }
-  }
-  else if (type === "SyntaxError") {
-    if (detail.toLowerCase().includes("unexpected token")) {
-      suggestion = `Check your code and find that typo! <br /><a target="_blank" href="${MDNJavascriptReferences.SyxError_UnexpToken}">Javascript Reference: SyntaxError - Unexpected token`
-    }
-  }
-  else if (type === "GameLogicError") {
-    suggestion = `Look at your world and consider you code logic again!`
-  }
-  else if (type === "GameKernalError") {
-    suggestion = `This does not occur that often. If you have seen this and believe it is an error, consider <a href="${GithubIssueSite}" target="_blank">report it to us</a>. `;
-  }
-
-  if (suggestion === "") suggestion = "Though we cannot give you much advice this time, it is always encouraged to do some research on google and find the solution yourself. "
-  return suggestion;
-}
 
 export function errorHandling(scriptNode, funcName, lineno, colno, error, args = {}) {
   args.detailed === undefined ? args.detailed = false : 0;
@@ -189,7 +156,7 @@ export function errorHandling(scriptNode, funcName, lineno, colno, error, args =
     colno = parseInt(arr[1].split(":")[1]);
   }
 
-  window.$app.$root.$emit("userCodeError", { errorStack: error.stack, detail: { type: error.stack.split(':')[0], lineno: lineno - 1, colno, suggestion: getSuggestion(error.stack.split(':')[0], error.stack) } });
+  window.$app.$root.$emit("userCodeError", { errorStack: error.stack, detail: { type: error.stack.split("\n")[0].split(':')[0], lineno: lineno - 1, colno} });
 
   scriptNode && console.log("Error at line: " + (lineno - 1) + "; column: " + colno);
   console.log(args.detailed ? error.stack : error.stack.split("\n")[0]);

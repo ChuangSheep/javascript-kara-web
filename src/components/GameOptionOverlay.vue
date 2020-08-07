@@ -1,12 +1,17 @@
 <template>
   <v-overlay absolute="absolute" opacity="0.5" :value="show" :z-index="40">
     <v-card max-width="800" width="75vw" min-width="300" color="#8AD9D6">
-      <v-card-title center>
-        <span>Welcome to Javascript Kara (web)!</span>
-        <v-spacer></v-spacer>
-        <v-btn text small @click="jumpTour">Jump the tour</v-btn>
-      </v-card-title>
-      <v-card-text>Tell us something about yourself.</v-card-text>
+      <v-row justify="space-between">
+        <v-col cols="12" md="8">
+          <v-card-title center>
+            <span>{{$t("intro.tour0.title")}}</span>
+          </v-card-title>
+          <v-card-subtitle style="padding-bottom:0;">{{$t("intro.tour0.subtitle")}}</v-card-subtitle>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn text small @click="jumpTour">{{$t("intro.tour0.skipTour")}}</v-btn>
+        </v-col>
+      </v-row>
       <v-row justify="space-around">
         <v-col cols="11" md="5">
           <v-card
@@ -15,12 +20,12 @@
             min-height="240"
             @click="handleBasicClick"
           >
-            <v-card-title>Beginner</v-card-title>
+            <v-card-title>{{$t("intro.tour0.beginner.title")}}</v-card-title>
             <v-card-text>
               <ul class="option-list">
-                <li>I have not learned programming, or</li>
-                <li></li>
-                <li></li>
+                <li>{{$t("intro.tour0.beginner.opt1")}}</li>
+                <li>{{$t("intro.tour0.beginner.opt2")}}</li>
+                <li>{{$t("intro.tour0.beginner.opt3")}}</li>
               </ul>
             </v-card-text>
           </v-card>
@@ -32,12 +37,12 @@
             min-height="240"
             @click="handleAdvancedClick"
           >
-            <v-card-title>Advanced</v-card-title>
+            <v-card-title>{{$t("intro.tour0.advanced.title")}}</v-card-title>
             <v-card-text>
               <ul class="option-list">
-                <li>I have learned at least one programming language, or</li>
-                <li>I have a basic understanding of javascript, or</li>
-                <li>I want to have more challenge...</li>
+                <li>{{$t("intro.tour0.advanced.opt1")}}</li>
+                <li>{{$t("intro.tour0.advanced.opt2")}}</li>
+                <li>{{$t("intro.tour0.advanced.opt3")}}</li>
               </ul>
             </v-card-text>
           </v-card>

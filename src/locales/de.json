@@ -1,0 +1,115 @@
+{
+  "common": {
+    "yesBtn": "Ja",
+    "noBtn": "Nein",
+    "closeBtn": "Schließen",
+    "saveBtn": "Speichern",
+    "goto": "Zu",
+    "changedToLang": "Erfolgreich auf Deutsch gewechselt. "
+  },
+  "playground": {
+    "title": "Spielplatz",
+    "worldName": "Weltname",
+    "run": "Starten",
+    "importWorld": "Welt Importieren",
+    "exportWorld": "Welt Exportieren",
+    "resize": "Größe Ändern",
+    "resizeDialog": {
+      "title": "Weltgröße Ändern",
+      "width": "Breite",
+      "height": "Höhe"
+    },
+    "resetWorld": "Welt Zurücksetzen",
+    "codeRunning": "Code wird ausgeführt.",
+    "confirmTitle": "Sind Sie sicher?",
+    "confirmReset": "Wollen Sie die Welt wirklich permanent löschen?<br/>Das kann nicht rückgängig gemacht werden."
+  },
+  "errorDialog": {
+    "title": "Opps, ein Fehler ist aufgetreten.",
+    "details": "Details",
+    "infoCodeEditor": "Ihr Code-Editor könnte Ihnen zusätzliche Information geben.",
+    "suggestions": {
+      "TypeError_NotAFunc": "Haben Sie den Funktionsnamen richtig eingegeben? Vielleicht wollen Sie einen Blick auf unser {0} werfen. ",
+      "TypeError_AssignConstVar": "Nachdem Sie eine Variable als Konstante erklärt haben, können sie ihren Wert auch nicht mehr ändern. {0}",
+      "RefError_VarNotDefined": "Haben Sie den Variable- oder Funktionsnamen richtig eingegeben? Bzw. haben Sie die Variable überhaupt erklärt, bevor Sie es nutzen? {0}",
+      "SyxError_UnexpToken": "Überprüfen Sie Ihren Code und finden Sie den Tippfehler! {0}",
+      "GameLogicError": "Schauen Sie auf die Welt und betrachten Sie Ihre Code-Logik noch einmal! {0}",
+      "GameKernalError": {
+        "text": "Diese Fehlermeldung kommt nicht so oft vor. Fall Sie diese für ein Bug halten, könnten Sie {0} Fehlermeldung könnte aber immer noch weitere zusätzliche Information beinhalten. ",
+        "contact": "mit uns Kontakt aufnehmen. "
+      },
+      "fallback": "Though we cannot give you much advice this time, it is always encouraged to do some research on google and find the solution yourself. {0}"
+    }
+  },
+  "coding": {
+    "title": "Coding",
+    "importCode": "Code Importieren",
+    "exportCode": "Code Exportieren",
+    "clearEditor": "Editor Zurücksetzen"
+  },
+  "intro": {
+    "tour0": {
+      "title": "Willkommen zu Javascript Kara (web)!",
+      "skipTour": "Tour Überspringen",
+      "subtitle": "Sagen Sie etwas über sich. ",
+      "beginner": {
+        "title": "Anfänger",
+        "opt1": "Ich habe Programmieren nie gelernt, oder",
+        "opt2": "Ich verstehe Objekt-Orientiertes Programmieren nicht, oder",
+        "opt3": "Ich möchte einen einfacheren Anfang haben..."
+      },
+      "advanced": {
+        "title": "Fortgeschrittene",
+        "opt1": "Ich kenne mindestens eine Programmiersprache aus, oder",
+        "opt2": "Ich habe die grundlegende Kenntnisse über Javascript, oder",
+        "opt3": "Ich möchte mehr Herausforderung haben..."
+      }
+    },
+    "tour1": {
+      "1": {
+        "title": "Wo alles beginnt",
+        "description": "Hier ist der Spielplatz. Sie können auf dieser Seite Ihre Code ausführen und sehen, wie Kara sich bewegt. Auch können Sie die Spielobjekte (z.B. Blatt oder Pilz) auf die Welt ziehen. ",
+        "nextBtnText": "Tour anfangen"
+      },
+      "2": {
+        "title": "Benennen Sie Ihre Welt",
+        "description": "Sie dürfen Ihre Welt selbst benennen. Das dient auch zum Import und Export Ihrer Welt und Ihres Codes. "
+      },
+      "3": {
+        "title": "Endlich...Die Welt",
+        "description": "Das ist Ihre Welt. Versuch mal, Kara darauf zu ziehen. "
+      },
+      "4": {
+        "title": "Kreieren, aber auch löschen",
+        "description": "Um irgendein Objekt aus der Welt zu löschen, machen Sie einfach einen Rechtsklick darauf. "
+      },
+      "5": {
+        "title": "Testen",
+        "description": "Klickt man auf den Knopf, wird den Code auf der <strong>Coding Seite</strong> ausgeführt. Lassen uns dort gehen und was Großartiges schreiben!",
+        "doneBtnText": "Zum Coding gehen"
+      }
+    },
+    "tour2": {
+      "1": {
+        "title": "1001011101",
+        "description": "Dies ist der Code Editor. Indem Sie Javascript-Code schreiben, können Sie Kara so gut wie alles steuern. Sei also <b>kreativ</b>!"
+      },
+      "2": {
+        "title": "Und noch mehr",
+        "description": "Kara sich bewegen zu lassen: kara.move()<br>Für weitere Methode, <a target='_blank' href='#'>References</a>."
+      },
+      "3": {
+        "title": "Zeit, wieder zurück zu gehen",
+        "description": "Nachdem Sie mit Ihren Code fertig sind, ist die Zeit, es zu testen. Gehen Sie auf die Spielplatz Seite und klicken Sie das <i>Starten</i> Knopf, das wir vorher gesehen haben. ",
+        "doneBtnText": "Zum Spielplatz gehen!"
+      }
+    },
+    "tour3": {
+      "1": {
+        "title": "Das Ende des Anfangs",
+        "description": "Endlich, fast geschafft! Klicken Sie auf den <i>Starten</i> Knopf und sehen Sie, wie Kara sich bewegt. ",
+        "closeBtnText": "Entdeckeln Sie die neue Welt!"
+      }
+    }
+  }
+}

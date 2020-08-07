@@ -3,10 +3,10 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify';
 
-
 Vue.config.productionTip = false
 
 import VuetifyConfirm from 'vuetify-confirm'
+import i18n from './i18n'
 Vue.use(VuetifyConfirm, { vuetify })
 
 
@@ -22,6 +22,7 @@ const app = new Vue({
       coTimeout: null
     }
   },
+
   watch: {
     isEvaling() {
       this.$root.$emit("evalingChange", this.isEvaling);
@@ -48,8 +49,10 @@ const app = new Vue({
       localStorage.setItem("width", this.boardWidth);
     }
   },
+
   router,
   vuetify,
+  i18n,
   render: h => h(App)
 }).$mount('#app')
 

@@ -1,0 +1,115 @@
+{
+  "common": {
+    "yesBtn": "Yes",
+    "noBtn": "No",
+    "closeBtn": "Close",
+    "saveBtn": "Save",
+    "goto": "Goto",
+    "changedToLang": "Successfully changed to English. "
+  },
+  "playground": {
+    "title": "Playground",
+    "worldName": "World Name",
+    "run": "Run",
+    "importWorld": "Import World",
+    "exportWorld": "Export World",
+    "resize": "Resize",
+    "resizeDialog": {
+      "title": "Change World Size",
+      "width": "Width",
+      "height": "Height"
+    },
+    "resetWorld": "Reset World",
+    "codeRunning": "Your code is running. ",
+    "confirmTitle": "Are you sure?",
+    "confirmReset": "Are you sure that you want to reset the world?<br/>This CANNOT be undone."
+  },
+  "errorDialog": {
+    "title": "Opps, an error has occured.",
+    "details": "Details",
+    "infoCodeEditor": "Your code editor may give you addtional information.",
+    "suggestions": {
+      "TypeError_NotAFunc": "Have you typed your function name correctly? Maybe you want to have a look of our {0}",
+      "TypeError_AssignConstVar": "Once you declare a variable as constant, you cannot change its value. {0}",
+      "RefError_VarNotDefined": "Did you typed your variable or function name correctly? Or have you declared the variable before you use it? {0}",
+      "SyxError_UnexpToken": "Check your code and find that typo! {0}",
+      "GameLogicError": "Look at your world and consider you code logic again! {0}",
+      "GameKernalError": {
+        "text": "This does not occur that often. If you have seen this and believe it is a bug, consider {0} The error itself could still contain useful information. ",
+        "contact": "report it to us. "
+      },
+      "fallback": "Though we cannot give you much advice this time, it is always encouraged to do some research on google and find the solution yourself. {0}"
+    }
+  },
+  "coding": {
+    "title": "Coding",
+    "importCode": "Import Code",
+    "exportCode": "Export Code",
+    "clearEditor": "Clear Editor"
+  },
+  "intro": {
+    "tour0": {
+      "title": "Welcome to Javascript Kara (web)!",
+      "skipTour": "Skip the tour",
+      "subtitle": "Tell us something about yourself.",
+      "beginner": {
+        "title": "Beginner",
+        "opt1": "I have not learned programming, or",
+        "opt2": "I don't understand object-oriented programming, or",
+        "opt3": "I want to start easier..."
+      },
+      "advanced": {
+        "title": "Advanced",
+        "opt1": "I have learned at least one programming language, or",
+        "opt2": "I have a basic understanding of javascript, or",
+        "opt3": "I want to have more challenge..."
+      }
+    },
+    "tour1": {
+      "1": {
+        "title": "Where it all starts",
+        "description": "This is the playground page. Here you can run your code and see how the kara moves. Also, you can put game objects on the world. ",
+        "nextBtnText": "Start the tour"
+      },
+      "2": {
+        "title": "Name your own world",
+        "description": "You are able to give your world a name. This name will be used when you export your code and world. "
+      },
+      "3": {
+        "title": "See your world",
+        "description": "This is the world. Try to drag the kara on a block!"
+      },
+      "4": {
+        "title": "Delete something",
+        "description": "To remove any object from your world, just right click on it. "
+      },
+      "5": {
+        "title": "Test it",
+        "description": "Clicking this button will execute the code you written in the Coding page. But now, let's <strong>go to the Coding page</strong> and write something awesome!",
+        "doneBtnText": "Go to coding!"
+      }
+    },
+    "tour2": {
+      "1": {
+        "title": "1001011101",
+        "description": "This is the coding editor. By writing javascript code, you will be able to control kara to do almost everything. So, be <b>creative</b>!"
+      },
+      "2": {
+        "title": "And a lot more",
+        "description": "To let kara move: kara.move()<br>For more methods, see <a target='_blank' href='https://google.com'>full references here</a>."
+      },
+      "3": {
+        "title": "Time to go back",
+        "description": "After you finished writing your code, it's time to test it! Go to the Playground page and click the <i>Run</i> button we discussed before. ",
+        "doneBtnText": "Go to Playground!"
+      }
+    },
+    "tour3": {
+      "1": {
+        "title": "The end of the beginning",
+        "description": "Finally, we are at the end of our tour. Click the <i>Run</i> button, and look how kara moves. ",
+        "closeBtnText": "Start your new journey"
+      }
+    }
+  }
+}

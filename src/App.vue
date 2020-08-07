@@ -34,6 +34,29 @@
     <v-app-bar app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>Javascript Kara - Web</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-menu
+        bottom
+        open-on-hover
+        transition="slide-y-transition"
+        close-on-click
+        close-on-content-click
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>fa-globe</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item v-for="(lang, i) in langs" :key="i" @click="handleLangMenuClick(lang.code)">
+            <v-list-item-title>{{lang.name}}</v-list-item-title>
+          </v-list-item>
+          <v-list-item href="https://github.com/ChuangSheep/javascript-kara-web" target="_blank">
+            <v-list-item-title class="grey--text">Help us to translate</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
 
     <v-main>
@@ -68,6 +91,8 @@
 <script>
 import GameOptionOverlay from "@/components/GameOptionOverlay.vue";
 import ErrorDialog from "@/components/ErrorDialog.vue";
+import langList from "@/language-list.json";
+
 export default {
   name: "App",
   components: { GameOptionOverlay, ErrorDialog },
@@ -78,6 +103,29 @@ export default {
       timeout: 2000,
       content: "",
     },
+    // [{name: "xxx", code="en"}]
+    langs: [],
   }),
+  methods: {
+    handleLangMenuClick(lang) {
+      this.$root.$i18n.locale = lang;
+      localStorage.setItem("userLang", lang);
+
+      this.snackbar.open = true;
+      this.snackbar.content = `${this.$t("common.changedToLang")}`;
+    },
+  },
+  mounted() {
+    let l = [];
+    for (let i in this.$i18n.messages) {
+      l.push({
+        name: `${langList[i].name.split(",")[0]} (${
+          langList[i].nativeName.split(",")[0]
+        })`,
+        code: i,
+      });
+    }
+    this.langs = l;
+  },
 };
 </script>
