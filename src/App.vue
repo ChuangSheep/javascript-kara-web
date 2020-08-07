@@ -44,6 +44,8 @@
         </template>
       </v-snackbar>
 
+      <ErrorDialog></ErrorDialog>
+
       <v-container fluid>
         <transition name="slide-x-transition" mode="out-in">
           <router-view></router-view>
@@ -65,19 +67,16 @@
 
 <script>
 import GameOptionOverlay from "@/components/GameOptionOverlay.vue";
+import ErrorDialog from "@/components/ErrorDialog.vue";
 export default {
   name: "App",
-  components: { GameOptionOverlay },
+  components: { GameOptionOverlay, ErrorDialog },
   data: () => ({
     drawer: null,
     snackbar: {
       open: false,
       timeout: 2000,
       content: "",
-    },
-    startGuide: {
-      show: false,
-      level: null,
     },
   }),
 };

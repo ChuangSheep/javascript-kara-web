@@ -32,7 +32,7 @@ class GameKernalError extends Error {
     this.errStr = errStr;
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, GameLogicError);
+      Error.captureStackTrace(this, GameKernalError);
     }
   }
 
@@ -100,7 +100,6 @@ class GameObject {
 // eslint-disable-next-line no-unused-vars
 class Kara extends GameObject {
   constructor(x, y, args = {}) {
-    if (getKaraInstance() !== null) throw new GameLogicError("There can only be one kara on the board at the same time");
     if (args.zIndex === undefined) args.zIndex = 1;
     super(x, y, args);
     this.type = this.constructor.name;
@@ -561,6 +560,7 @@ module.exports = {
 }
 
 
+// eslint-disable-next-line no-unused-vars
 function getKaraInstance() {
   for (let obj of window.$app.$root.$data.createdObjects) {
     if (obj.type === "Kara") {
