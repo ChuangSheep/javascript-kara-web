@@ -1,5 +1,6 @@
 window.GAMEVERSION = "Kara 0.1 jskara_web"
-window.GAMENAME = 'jskara_web_based';
+window.GAMENAME = 'jskara_web';
+window.NOTICE = "javascript_kara_web\nCopyright (C) 2020 Chuyang Wang\nThis program comes with ABSOLUTELY NO WARRANTY\n\nThis is free software, and you are welcome to redistribute it under certain conditions. Type about() for details. "
 
 class GameLogicError extends Error {
   constructor(errStr = '', currentPosition = null) {
@@ -568,4 +569,9 @@ function getKaraInstance() {
     }
   }
   return null;
+}
+
+// eslint-disable-next-line no-unused-vars
+function about() {
+  console.log("javascript_kara_web, an open-sourced implementation of JavascriptKara(SwissEduc)\nNote that this software is not in any kind related with the original JavascriptKara from SwissEduc\nCopyright (C) 2020 Chuyang Wang\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, Version 3.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0>.");
 }
