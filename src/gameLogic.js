@@ -103,7 +103,7 @@ class Kara extends GameObject {
   constructor(x, y, args = {}) {
     if (args.zIndex === undefined) args.zIndex = 1;
     super(x, y, args);
-    this.type = this.constructor.name;
+    this.type = "Kara";
 
     window.$app.$root.$data.currentKaraX = this.x.valueOf();
     window.$app.$root.$data.currentKaraY = this.y.valueOf();
@@ -410,7 +410,7 @@ class Kara extends GameObject {
   }
 
   get state() {
-    return this.constructor.name;
+    return this.type;
   }
 }
 
@@ -418,11 +418,11 @@ class Kara extends GameObject {
 class Leaf extends GameObject {
   constructor(x, y, args = {}) {
     super(x, y, args);
-    this.type = this.constructor.name;
+    this.type = "Leaf";
   }
 
   get state() {
-    return this.constructor.name;
+    return this.type;
   }
 }
 
@@ -433,11 +433,11 @@ class Mashroom extends GameObject {
     if (args.zIndex === undefined) args.zIndex = 1;
     if (args.pushable === undefined) args.pushable = true;
     super(x, y, args);
-    this.type = this.constructor.name;
+    this.type = "Mashroom";
   }
 
   get state() {
-    return this.constructor.name;
+    return this.type;
   }
 
   bePushed(directionTo) {
@@ -543,10 +543,10 @@ class Tree extends GameObject {
   constructor(x, y, args = {}) {
     if (args.zIndex === undefined) args.zIndex = 1;
     super(x, y, args);
-    this.type = this.constructor.name;
+    this.type = "Tree";
   }
   get state() {
-    return this.constructor.name;
+    return this.type;
   }
 }
 
