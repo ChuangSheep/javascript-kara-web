@@ -29,5 +29,9 @@ module.exports = {
       enableInSFC: true,
       whitelist: ['en', 'de']
     }
-  }
+  },
+
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/jskara-web/'
+  : '/'
 }
