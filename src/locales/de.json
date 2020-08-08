@@ -38,7 +38,7 @@
         "text": "Diese Fehlermeldung kommt nicht so oft vor. Fall Sie diese für ein Bug halten, könnten Sie {0} Fehlermeldung könnte aber immer noch weitere zusätzliche Information beinhalten. ",
         "contact": "mit uns Kontakt aufnehmen. "
       },
-      "fallback": "Though we cannot give you much advice this time, it is always encouraged to do some research on google and find the solution yourself. {0}"
+      "fallback": "Zwar können wir Ihnen dieses Mal nicht so viel helfen, ist es immer empfehlenswert, selbst auf Google zu recherchieren und die Lösung zu finden. {0}"
     }
   },
   "coding": {

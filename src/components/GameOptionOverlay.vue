@@ -50,6 +50,32 @@
       </v-row>
       <v-card-actions>
         <v-spacer></v-spacer>
+        <v-menu
+          bottom
+          open-on-hover
+          transition="slide-y-transition"
+          close-on-click
+          close-on-content-click
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon v-bind="attrs" v-on="on" style="margin-right: 30px;">
+              <v-icon left>fa-globe</v-icon> {{$i18n.locale.toUpperCase()}}
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(lang, i) in langs"
+              :key="i"
+              @click="handleLangMenuClick(lang.code)"
+            >
+              <v-list-item-title>{{lang.name}}</v-list-item-title>
+            </v-list-item>
+            <v-list-item href="https://github.com/ChuangSheep/javascript-kara-web" target="_blank">
+              <v-list-item-title class="grey--text">Help us to translate</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-card-actions>
     </v-card>
   </v-overlay>
@@ -75,11 +101,14 @@
 </style>
 
 <script>
+import langList from "@/language-list.json";
+
 export default {
   data() {
     return {
       show: false,
       level: null,
+      langs: [],
     };
   },
   watch: {
@@ -120,6 +149,10 @@ export default {
     handleAdvancedClick() {
       this.level = 1;
     },
+    handleLangMenuClick(lang) {
+      this.$root.$i18n.locale = lang;
+      localStorage.setItem("userLang", lang);
+    },
   },
   mounted() {
     // firstTime: {tour0: Boolean (false: not finished; true: finished), tour1: Boolean, tour2: Boolean, tour3: Boolean, level: Number} ==> level: 0 = Beginner, 1 = Known JS
@@ -130,6 +163,17 @@ export default {
     } else {
       firstTime.tour0 ? (this.show = firstTime.tour0) : 0;
     }
+
+    let l = [];
+    for (let i in this.$i18n.messages) {
+      l.push({
+        name: `${langList[i].name.split(",")[0]} (${
+          langList[i].nativeName.split(",")[0]
+        })`,
+        code: i,
+      });
+    }
+    this.langs = l;
   },
 };
 </script>
