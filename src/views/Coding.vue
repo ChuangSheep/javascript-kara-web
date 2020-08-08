@@ -103,8 +103,8 @@ export default {
     },
     clearEditor() {
       this.$confirm(
-        "Are you sure that you want to reset the editor?<br/>This CANNOT be undone.",
-        { title: "Are you sure?" }
+        `${this.$t("coding.confirmReset")}`,
+        { title: `${this.$t("coding.confirmTitle")}` }
       ).then((res) => {
         if (res) {
           this.userCode = this.INITCODE.valueOf();

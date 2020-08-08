@@ -45,7 +45,9 @@
     "title": "Coding",
     "importCode": "Code Importieren",
     "exportCode": "Code Exportieren",
-    "clearEditor": "Editor Zurücksetzen"
+    "clearEditor": "Editor Zurücksetzen",
+    "confirmTitle": "Sind Sie sicher?",
+    "confirmReset": "Wollen Sie den Editor wirklich zurücksetzen?<br/>Das kann nicht rückgängig gemacht werden."
   },
   "intro": {
     "tour0": {

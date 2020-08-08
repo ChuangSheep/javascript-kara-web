@@ -45,7 +45,9 @@
     "title": "Coding",
     "importCode": "Import Code",
     "exportCode": "Export Code",
-    "clearEditor": "Clear Editor"
+    "clearEditor": "Clear Editor",
+    "confirmTitle": "Are you sure?",
+    "confirmReset": "Are you sure that you want to reset the editor?<br/>This CANNOT be undone."
   },
   "intro": {
     "tour0": {
