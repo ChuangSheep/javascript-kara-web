@@ -1,11 +1,17 @@
-//const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
-
+/* eslint-disable no-unused-vars */
 module.exports = {
   "transpileDependencies": [
     "vuetify"
   ],
 
   chainWebpack: (config) => {
+    config.plugin('VuetifyLoaderPlugin').tap(args => [{
+      match(originalTag, { kebabTag, camelTag, path, component }) {
+        if (kebabTag.startsWith('core-')) {
+          return [camelTag, `import ${camelTag} from '@/components/core/${camelTag.substring(4)}.vue'`]
+        }
+      }
+    }])
     config
       .plugin('html')
       .tap((args) => {
@@ -14,11 +20,9 @@ module.exports = {
       });
   },
 
+
   configureWebpack: {
     devtool: 'source-map',
-    plugins: [
-      //new VuetifyLoaderPlugin()
-    ],
   },
 
   pluginOptions: {
@@ -32,6 +36,6 @@ module.exports = {
   },
 
   publicPath: process.env.NODE_ENV === 'production'
-  ? '/jskara-web/'
-  : '/'
+    ? '/jskara-web/'
+    : '/'
 }

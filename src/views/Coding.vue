@@ -74,6 +74,19 @@
 import Driver from "driver.js";
 import "driver.js/dist/driver.min.css";
 
+let driver = new Driver({
+  allowClose: false,
+  onReset: (e) => {
+    if (e) {
+      let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+      if (e.node.id === "backToPlayground" && !firstTime.tour1) {
+        firstTime.tour2 = false;
+        localStorage.setItem("firstTime", JSON.stringify(firstTime));
+      }
+    }
+  },
+});
+
 export default {
   components: {
     editor: require("vue2-ace-editor"),
@@ -89,7 +102,7 @@ export default {
   },
   watch: {
     userCode(val) {
-      localStorage.setItem("userCode", val);
+      if (val) localStorage.setItem("userCode", val);
     },
   },
   methods: {
@@ -102,10 +115,9 @@ export default {
       require("brace/snippets/javascript"); //snippet
     },
     clearEditor() {
-      this.$confirm(
-        `${this.$t("coding.confirmReset")}`,
-        { title: `${this.$t("coding.confirmTitle")}` }
-      ).then((res) => {
+      this.$confirm(`${this.$t("coding.confirmReset")}`, {
+        title: `${this.$t("coding.confirmTitle")}`,
+      }).then((res) => {
         if (res) {
           this.userCode = this.INITCODE.valueOf();
         }
@@ -156,6 +168,10 @@ export default {
       });
     },
     gotoPlayground() {
+      let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+      if (firstTime.tour2 && !firstTime.tour1) {
+        driver.reset();
+      }
       this.$router.push("/playground");
     },
     getGuildStep() {
@@ -195,13 +211,14 @@ export default {
     },
   },
   mounted() {
-    if (localStorage.getItem("userCode") != "") {
-      this.userCode = localStorage.getItem("userCode");
-    } else {
-      this.userCode = this.INITCODE.valueOf();
-    }
+    window.setTimeout(() => {
+      if (localStorage.getItem("userCode") != null) {
+        this.userCode = localStorage.getItem("userCode");
+      } else {
+        this.userCode = this.INITCODE.valueOf();
+      }
+    }, 25);
 
-    let driver = new Driver();
     let firstTime = JSON.parse(localStorage.getItem("firstTime"));
     if (firstTime !== null) {
       if (firstTime.tour2) {

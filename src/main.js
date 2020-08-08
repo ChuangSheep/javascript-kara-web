@@ -49,7 +49,6 @@ const app = new Vue({
       localStorage.setItem("width", this.boardWidth);
     }
   },
-
   router,
   vuetify,
   i18n,

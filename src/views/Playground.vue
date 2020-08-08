@@ -25,7 +25,7 @@
                   v-bind="attrs"
                   color="primary"
                   @click="runCode"
-                  :disabled="isEvaling"
+                  :disabled="isEvaling || onTour"
                 >{{$t('playground.run')}}</v-btn>
               </div>
             </template>
@@ -222,11 +222,14 @@ import treePng from "@/assets/game-img/tree-64.png";
 import treeSvg from "@/assets/game-img/tree-64.svg";
 
 let driver = new Driver({
+  allowClose: false,
   onReset: (e) => {
-    let firstTime = JSON.parse(localStorage.getItem("firstTime"));
-    if (e.node.id === "runCode" && !firstTime.tour2) {
-      firstTime.tour3 = false;
-      localStorage.setItem("firstTime", JSON.stringify(firstTime));
+    if (e) {
+      let firstTime = JSON.parse(localStorage.getItem("firstTime"));
+      if (e.node.id === "runCode" && !firstTime.tour2) {
+        firstTime.tour3 = false;
+        localStorage.setItem("firstTime", JSON.stringify(firstTime));
+      }
     }
   },
 });
@@ -241,6 +244,7 @@ export default {
   data() {
     return {
       isEvaling: false,
+      onTour: false,
       width: 50,
       height: 30,
       dialog: false,
@@ -270,7 +274,7 @@ export default {
       fileName:
         localStorage.getItem("worldName") != null
           ? localStorage.getItem("worldName")
-          : "",
+          : "Unnamed",
       preferenceSetting:
         localStorage.getItem("userPreference") != null
           ? JSON.parse(localStorage.getItem("userPreference"))
@@ -462,9 +466,15 @@ export default {
     },
     showSavedData() {
       let world = localStorage.getItem("userWorld");
-      this.resetWorld();
-      setDataFromXMLString(world);
-      this.worldName = localStorage.getItem("worldName");
+
+      if (world != null) {
+        this.resetWorld();
+        setDataFromXMLString(world);
+      }
+      this.worldName =
+        localStorage.getItem("worldName") == null
+          ? "Unnamed"
+          : localStorage.getItem("worldName");
       let item = {
         width: parseInt(this.width.valueOf()),
         height: parseInt(this.height.valueOf()),
@@ -655,11 +665,17 @@ export default {
     this.$root.$on("evalingChange", (state) => {
       this.isEvaling = state.valueOf();
     });
-    this.width = localStorage.getItem("width");
-    this.height = localStorage.getItem("height");
+    this.width =
+      localStorage.getItem("width") != null
+        ? localStorage.getItem("width")
+        : 10;
+    this.height =
+      localStorage.getItem("height") != null
+        ? localStorage.getItem("height")
+        : 10;
   },
   mounted() {
-    if (localStorage.getItem("userWorld") !== undefined) {
+    if (localStorage.getItem("userWorld") != null) {
       window.setTimeout(() => {
         this.showSavedData();
       }, 20);
@@ -669,9 +685,10 @@ export default {
       let firstTime = JSON.parse(localStorage.getItem("firstTime"));
       if (firstTime !== null) {
         if (firstTime.tour1) {
+          this.onTour = true;
           driver.defineSteps(this.getGuideStep1());
           driver.start();
-        } else if (firstTime.tour3) {
+        } else if (firstTime.tour3 && !firstTime.tour2) {
           driver.defineSteps(this.getGuideStep2());
           driver.start();
         }

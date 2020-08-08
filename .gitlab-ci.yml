@@ -7,6 +7,7 @@ pages:
   - rm -rf public
   - mkdir public
   - cp -r dist/* public
+  - gzip -k -6 $(find public -type f) 
  artifacts:
   expire_in: 1 day
   paths:

@@ -87,7 +87,7 @@
       },
       "5": {
         "title": "Testen",
-        "description": "Klickt man auf den Knopf, wird den Code auf der <strong>Coding Seite</strong> ausgeführt. Lassen uns dort gehen und was Großartiges schreiben!",
+        "description": "Klickt man auf den Knopf, wird den Code von der <strong>Coding Seite</strong> ausgeführt. Lassen uns dort gehen und was Großartiges schreiben!",
         "doneBtnText": "Zum Coding gehen"
       }
     },
@@ -98,7 +98,7 @@
       },
       "2": {
         "title": "Und noch mehr",
-        "description": "Kara sich bewegen zu lassen: kara.move()<br>Für weitere Methode, <a target='_blank' href='#'>References</a>."
+        "description": "Kara sich bewegen zu lassen: kara.move()<br>Weitere Methode finden Sie bei <a target='_blank' href='#'>References</a>."
       },
       "3": {
         "title": "Zeit, wieder zurück zu gehen",
