@@ -10,7 +10,7 @@ class GameLogicError extends Error {
       this.currentPosition = currentPosition;
       errStr += (": current position: " + currentPosition[0] + "," + currentPosition[1])
     }
-    this.name = this.constructor.name;
+    this.name = "GameLogicError";
     this.errStr = errStr;
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {
@@ -29,7 +29,7 @@ class GameLogicError extends Error {
 class GameKernalError extends Error {
   constructor(errStr = '') {
     super(errStr);
-    this.name = this.constructor.name;
+    this.name = "GameKernalError";
     this.errStr = errStr;
     // Maintains proper stack trace for where our error was thrown (only available on V8)
     if (Error.captureStackTrace) {
@@ -549,7 +549,6 @@ class Tree extends GameObject {
     return this.type;
   }
 }
-
 
 // eslint-disable-next-line no-unused-vars
 function getKaraInstance() {

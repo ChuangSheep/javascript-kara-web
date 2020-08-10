@@ -486,7 +486,6 @@ export default {
       if (firstTime.tour3 && !firstTime.tour1) {
         driver.reset();
       }
-
       let old = getDataAsXMLString();
       localStorage.setItem("userWorld", old);
       this.$root.$emit("reset");
@@ -694,6 +693,10 @@ export default {
         }
       }
     }, 50);
+  },
+  beforeRouteLeave(to, from, next) {
+    this.saveWorld();
+    next();
   },
 };
 </script>

@@ -5,6 +5,9 @@ module.exports = {
   ],
 
   chainWebpack: (config) => {
+    // To prevent optimization causing error handling not working
+    // Enable again if the issue could be fixed in other ways
+    config.optimization.minimize(false)
     config.plugin('VuetifyLoaderPlugin').tap(args => [{
       match(originalTag, { kebabTag, camelTag, path, component }) {
         if (kebabTag.startsWith('core-')) {

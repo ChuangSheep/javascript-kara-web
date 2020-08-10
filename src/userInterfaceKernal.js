@@ -156,7 +156,10 @@ export function errorHandling(scriptNode, funcName, lineno, colno, error, args =
     colno = parseInt(arr[1].split(":")[1]);
   }
 
-  window.$app.$root.$emit("userCodeError", { errorStack: error.stack, detail: { type: error.stack.split("\n")[0].split(':')[0], lineno: lineno - 1, colno} });
+
+  let type = error.stack.split("\n")[0].split(':')[0];
+  if (error.name) type = error.name;
+  window.$app.$root.$emit("userCodeError", { errorStack: error.stack, detail: { type: type, lineno: lineno - 1, colno } });
 
   scriptNode && console.log("Error at line: " + (lineno - 1) + "; column: " + colno);
   console.log(args.detailed ? error.stack : error.stack.split("\n")[0]);
