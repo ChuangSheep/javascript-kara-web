@@ -5,7 +5,8 @@
     "closeBtn": "Schließen",
     "saveBtn": "Speichern",
     "goto": "Zu",
-    "changedToLang": "Erfolgreich auf Deutsch gewechselt. "
+    "changedToLang": "Erfolgreich auf Deutsch gewechselt. ",
+    "saved": "Saved successfully."
   },
   "playground": {
     "title": "Spielplatz",
@@ -28,6 +29,7 @@
     "title": "Opps, ein Fehler ist aufgetreten.",
     "details": "Details",
     "infoCodeEditor": "Ihr Code-Editor könnte Ihnen zusätzliche Information geben.",
+    "detailedConsole": "Detaillierte Fehlermeldung befindet sich im Console Ihres Browsers. Drücken Sie F12, um dies zu sehen. ",
     "suggestions": {
       "TypeError_NotAFunc": "Haben Sie den Funktionsnamen richtig eingegeben? Vielleicht wollen Sie einen Blick auf unser {0} werfen. ",
       "TypeError_AssignConstVar": "Nachdem Sie eine Variable als Konstante erklärt haben, können sie ihren Wert auch nicht mehr ändern. {0}",
@@ -48,6 +50,15 @@
     "clearEditor": "Editor Zurücksetzen",
     "confirmTitle": "Sind Sie sicher?",
     "confirmReset": "Wollen Sie den Editor wirklich zurücksetzen?<br/>Das kann nicht rückgängig gemacht werden."
+  },
+  "help": {
+    "title": "Hilfe"
+  },
+  "setting": {
+    "title": "Einstellung",
+    "speed": "Geschwindigkeit",
+    "detailed": "Detaillierte Fehlermeldung",
+    "legacy": "Alte Versionsnummer zu nutzen"
   },
   "intro": {
     "tour0": {

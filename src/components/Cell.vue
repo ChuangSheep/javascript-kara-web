@@ -8,6 +8,7 @@
     oncontextmenu="return false;"
   >
     <img
+      :draggable="draggable && !isEvaling"
       v-for="obj in upperObjects"
       :key="obj.__id"
       :style="'z-index:' + obj.zIndex "
@@ -105,7 +106,6 @@ export default {
           return { png: this.mashroomPng, svg: this.mashroomSvg };
         case "Tree":
           return { png: this.treePng, svg: this.treeSvg };
-
         default:
           return { png: this.errorPng, svg: this.errorSvg };
       }
@@ -156,7 +156,11 @@ export default {
       e.dataTransfer.setData("text", JSON.stringify(this.upperObjects[index]));
     },
     handleRightClick(e) {
-      if (event.which === 3 && this.upperObjects.length > 0 && !this.$root.$data.isEvaling) {
+      if (
+        event.which === 3 &&
+        this.upperObjects.length > 0 &&
+        !this.$root.$data.isEvaling
+      ) {
         let index = 0;
         for (let obj of this.upperObjects) {
           if (obj.zIndex > this.upperObjects[index].zIndex)

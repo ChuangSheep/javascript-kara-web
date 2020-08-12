@@ -19,6 +19,10 @@
                   <br />
                   <span class="white--text">{{mainMsg}}</span>
                   <br />
+                  <div v-if="$root.$data.setting.detailed">
+                    <span>{{$t('errorDialog.detailedConsole')}}</span>
+                    <br />
+                  </div>
                   <span>
                     <i>{{$t("errorDialog.infoCodeEditor")}}</i>
                   </span>
@@ -104,7 +108,8 @@ export default {
           "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Not_defined",
         TypeError_AssignConstVar:
           "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Invalid_const_assignment",
-        SyxError_UnexpToken: "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unexpected_token",
+        SyxError_UnexpToken:
+          "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Unexpected_token",
       };
       let suggestion = {};
       if (type === "TypeError") {
@@ -139,7 +144,9 @@ export default {
       } else if (type === "GameKernalError") {
         suggestion.path = "errorDialog.suggestions.GameKernalError.text";
         suggestion.link = GithubIssueSite;
-        suggestion.linkText = `${this.$t("errorDialog.suggestions.GameKernalError.contact")}`;
+        suggestion.linkText = `${this.$t(
+          "errorDialog.suggestions.GameKernalError.contact"
+        )}`;
       }
 
       // Fallback

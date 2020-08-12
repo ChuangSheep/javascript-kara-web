@@ -11,7 +11,7 @@
               @click="gotoPlayground"
               color="primary"
               id="backToPlayground"
-            >{{$t("common.goto")}} Playground</v-btn>
+            >{{$t("common.goto")}} {{$t("playground.title")}}</v-btn>
           </v-col>
           <v-col cols="auto" style="display: inline-block">
             <v-btn :loading="isSelectingExport" @click="exportCode">{{$t("coding.exportCode")}}</v-btn>
@@ -117,6 +117,8 @@ export default {
     clearEditor() {
       this.$confirm(`${this.$t("coding.confirmReset")}`, {
         title: `${this.$t("coding.confirmTitle")}`,
+        buttonTrueText: `${this.$t("common.yesBtn")}`,
+        buttonFalseText: `${this.$t("common.noBtn")}`,
       }).then((res) => {
         if (res) {
           this.userCode = this.INITCODE.valueOf();

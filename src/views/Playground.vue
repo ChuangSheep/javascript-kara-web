@@ -275,13 +275,6 @@ export default {
         localStorage.getItem("worldName") != null
           ? localStorage.getItem("worldName")
           : "Unnamed",
-      preferenceSetting:
-        localStorage.getItem("userPreference") != null
-          ? JSON.parse(localStorage.getItem("userPreference"))
-          : {
-              legacy: false,
-              advancedMode: false,
-            },
       worldFile: null,
       worldName: "Unnamed",
       isSelectingImport: null,
@@ -461,7 +454,7 @@ export default {
       this.saveWorld();
     },
     saveWorld() {
-      let world = getDataAsXMLString();
+      let world = getDataAsXMLString(this.$root.$data.setting.legacy);
       localStorage.setItem("userWorld", world);
     },
     showSavedData() {
@@ -486,7 +479,7 @@ export default {
       if (firstTime.tour3 && !firstTime.tour1) {
         driver.reset();
       }
-      let old = getDataAsXMLString();
+      let old = getDataAsXMLString(this.$root.$data.setting.legacy);
       localStorage.setItem("userWorld", old);
       this.$root.$emit("reset");
       this.$root.$data.createdObjects.splice(
@@ -508,7 +501,7 @@ export default {
         },
         { once: true }
       );
-      var data = getDataAsXMLString();
+      var data = getDataAsXMLString(this.$root.$data.setting.legacy);
       var blob = new Blob([data], { type: "application/octet-stream" });
       if (window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveBlob(
@@ -547,6 +540,8 @@ export default {
     uResetWorld() {
       this.$confirm(`${this.$t("playground.confirmReset")}`, {
         title: `${this.$t("playground.confirmTitle")}`,
+        buttonTrueText: `${this.$t("common.yesBtn")}`,
+        buttonFalseText: `${this.$t("common.noBtn")}`,
       }).then((res) => {
         if (res) {
           this.resetWorld();

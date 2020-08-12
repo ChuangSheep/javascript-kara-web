@@ -5,7 +5,8 @@
     "closeBtn": "Close",
     "saveBtn": "Save",
     "goto": "Goto",
-    "changedToLang": "Successfully changed to English. "
+    "changedToLang": "Successfully changed to English. ",
+    "saved": "Saved successfully."
   },
   "playground": {
     "title": "Playground",
@@ -28,6 +29,7 @@
     "title": "Opps, an error has occured.",
     "details": "Details",
     "infoCodeEditor": "Your code editor may give you addtional information.",
+    "detailedConsole": "Detailed error information is in the browser console. Press F12 to see it. ",
     "suggestions": {
       "TypeError_NotAFunc": "Have you typed your function name correctly? Maybe you want to have a look of our {0}",
       "TypeError_AssignConstVar": "Once you declare a variable as constant, you cannot change its value. {0}",
@@ -48,6 +50,15 @@
     "clearEditor": "Clear Editor",
     "confirmTitle": "Are you sure?",
     "confirmReset": "Are you sure that you want to reset the editor?<br/>This CANNOT be undone."
+  },
+  "help": {
+    "title": "Help"
+  },
+  "setting": {
+    "title": "Setting",
+    "speed": "Speed",
+    "detailed": "Detailed Error Information",
+    "legacy": "Use old version number"
   },
   "intro": {
     "tour0": {

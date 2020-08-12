@@ -19,7 +19,8 @@ const app = new Vue({
       board: [],
       boardHeight: null,
       boardWidth: null,
-      coTimeout: null
+      coTimeout: null,
+      setting: { speed: 1000, detailed: false },
     }
   },
 
@@ -48,6 +49,14 @@ const app = new Vue({
     boardWidth() {
       localStorage.setItem("width", this.boardWidth);
     }
+  },
+  mounted() {
+    this.$on("settingChange", (data) => {
+      Object.assign(this.setting, data);
+      localStorage.setItem("setting", JSON.stringify(data));
+    })
+    if (localStorage.getItem("setting"))
+      Object.assign(this.setting, JSON.parse(localStorage.getItem("setting")));
   },
   router,
   vuetify,

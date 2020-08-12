@@ -44,13 +44,14 @@ class GameKernalError extends Error {
 }
 
 
-// expected args: {direction: 1, zIndex: 0, init: true}
+// expected args: {direction: 1, zIndex: 0, init: true, speed: 1000}
 class GameObject {
   constructor(x, y, args = {}) {
     if (args.direction === undefined) args.direction = 1;
     if (args.zIndex === undefined) args.zIndex = 0;
     if (args.init === undefined) args.init = true;
     if (args.pushable === undefined) args.pushable = false;
+    if (args.speed === undefined) args.speed = 1000;
     this.xVal = x;
     this.yVal = y;
     this.direction = args.direction;
@@ -59,7 +60,7 @@ class GameObject {
     this.type = this.constructor.name;
     this.__id = Math.random().toString(36).substr(2, 10) + Date.now().toString().slice(-6);
     this.processTimeoutCount = 0;
-    this.timeout = 1000;
+    this.timeout = args.speed;
     args.init && window.$app.$root.$emit("addObject", { obj: this });
   }
 
@@ -444,7 +445,7 @@ class Mashroom extends GameObject {
     if (this.currentX === undefined) this.currentX = this.x.valueOf();
     if (this.currentY === undefined) this.currentY = this.y.valueOf();
     if (directionTo === 0) {
-      if (this.y > 1) {
+      if (this.currentY > 1) {
         if (window.$app.$root.$data.currentBoard[this.currentX - 1][this.currentY - 2].some((i) => i.zIndex === this.zIndex && !i.pushable))
           throw new GameLogicError(`Mashroom cannot be pushed to [${this.currentX}, ${this.currentY - 1}] because there is already a object with the same zIndex ${this.zIndex}`, [this.currentX, this.currentY]);
         if (window.$app.$root.$data.currentBoard[this.currentX - 1][this.currentY - 2].some((i) => i.zIndex === this.zIndex && i.pushable)) {
@@ -458,7 +459,7 @@ class Mashroom extends GameObject {
       else throw new GameLogicError('Mashroom cannot be pushed out of bound. ', [this.currentX, this.currentY]);
     }
     else if (directionTo === 1) {
-      if (this.x < window.$app.$root.$data.boardWidth) {
+      if (this.currentX < window.$app.$root.$data.boardWidth) {
         if (window.$app.$root.$data.currentBoard[this.currentX][this.currentY - 1].some((i) => i.zIndex === this.zIndex && !i.pushable))
           throw new GameLogicError(`Mashroom cannot be pushed to [${this.currentX + 1}, ${this.currentY}] because there is already a object with the same zIndex ${this.zIndex}`, [this.currentX, this.currentY]);
         if (window.$app.$root.$data.currentBoard[this.currentX][this.currentY - 1].some((i) => i.zIndex === this.zIndex && i.pushable)) {
@@ -472,7 +473,7 @@ class Mashroom extends GameObject {
       else throw new GameLogicError('Mashroom cannot be pushed out of bound. ', [this.currentX, this.currentY]);
     }
     else if (directionTo === 2) {
-      if (this.y < window.$app.$root.$data.boardHeight) {
+      if (this.currentY < window.$app.$root.$data.boardHeight) {
         if (window.$app.$root.$data.currentBoard[this.currentX - 1][this.currentY].some((i) => i.zIndex === this.zIndex && !i.pushable))
           throw new GameLogicError(`Mashroom cannot be pushed to [${this.currentX}, ${this.currentY + 1}] because there is already a object with the same zIndex ${this.zIndex}`, [this.currentX, this.currentY]);
         if (window.$app.$root.$data.currentBoard[this.currentX - 1][this.currentY].some((i) => i.zIndex === this.zIndex && i.pushable)) {
@@ -486,7 +487,7 @@ class Mashroom extends GameObject {
       else throw new GameLogicError('Mashroom cannot be pushed out of bound. ', [this.currentX, this.currentY]);
     }
     else if (directionTo === 3) {
-      if (this.x > 1) {
+      if (this.currentX > 1) {
         if (window.$app.$root.$data.currentBoard[this.currentX - 2][this.currentY - 1].some((i) => i.zIndex === this.zIndex && !i.pushable))
           throw new GameLogicError(`Mashroom cannot be pushed to [${this.currentX - 1}, ${this.currentY}] because there is already a object with the same zIndex ${this.zIndex}`, [this.currentX, this.currentY]);
         if (window.$app.$root.$data.currentBoard[this.currentX - 2][this.currentY - 1].some((i) => i.zIndex === this.zIndex && i.pushable)) {

@@ -3,32 +3,33 @@
     <GameOptionOverlay></GameOptionOverlay>
     <v-navigation-drawer app v-model="drawer">
       <v-list>
-        <v-list-item link to="/playground">
+        <v-list-item link to="/playground" :disabled="isEvaling">
           <v-list-item-action>
             <v-icon>mdi-apps</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Playground</v-list-item-title>
+            <v-list-item-title>{{$t("playground.title")}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <div id="coding">
-          <v-list-item link to="/coding">
+          <v-list-item link to="/coding" :disabled="isEvaling">
             <v-list-item-action>
               <v-icon>mdi-code-array</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Coding</v-list-item-title>
+              <v-list-item-title>{{$t("coding.title")}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </div>
-        <v-list-item link to="/help">
+        <v-list-item link to="/help" :disabled="isEvaling">
           <v-list-item-action>
             <v-icon>mdi-help-circle</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Help</v-list-item-title>
+            <v-list-item-title>{{$t("help.title")}}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <Setting :disabled="isEvaling" @close="closeSetting" @save="saveSetting"></Setting>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app color="primary" dark>
@@ -91,12 +92,14 @@
 <script>
 import GameOptionOverlay from "@/components/GameOptionOverlay.vue";
 import ErrorDialog from "@/components/ErrorDialog.vue";
+import Setting from "@/components/Setting.vue";
 import langList from "@/language-list.json";
 
 export default {
   name: "App",
-  components: { GameOptionOverlay, ErrorDialog },
+  components: { GameOptionOverlay, ErrorDialog, Setting },
   data: () => ({
+    isEvaling: false,
     drawer: null,
     snackbar: {
       open: false,
@@ -108,14 +111,29 @@ export default {
   }),
   methods: {
     handleLangMenuClick(lang) {
-      this.$root.$i18n.locale = lang;
-      localStorage.setItem("userLang", lang);
+      if (lang != this.$root.$i18n.locale) {
+        this.$root.$i18n.locale = lang;
+        localStorage.setItem("userLang", lang);
 
+        this.snackbar.open = true;
+        this.snackbar.content = `${this.$t("common.changedToLang")}`;
+      }
+    },
+    closeSetting() {
+      this.drawer = null;
+    },
+    saveSetting(data) {
+      this.closeSetting();
+      this.$root.$emit("settingChange", data);
       this.snackbar.open = true;
-      this.snackbar.content = `${this.$t("common.changedToLang")}`;
+      this.snackbar.content = `${this.$t("common.saved")}`;
     },
   },
   mounted() {
+    this.$root.$on("evalingChange", (state) => {
+      this.isEvaling = state.valueOf();
+    });
+
     let l = [];
     for (let i in this.$i18n.messages) {
       l.push({

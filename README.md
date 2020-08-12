@@ -1,4 +1,6 @@
-# js-kara-web
+# javascript-kara-web
+
+For Demo, [here](https://chuang_.gitlab.io/jskara-web/#/playground).
 
 ## Project setup
 ```

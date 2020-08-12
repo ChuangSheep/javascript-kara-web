@@ -96,23 +96,23 @@ export function setDataFromXML(xmlDoc) {
   for (let tree of wallPts.getElementsByTagName("XmlPoint")) {
     let x = parseInt(tree.getAttribute("x"));
     let y = parseInt(tree.getAttribute("y"));
-    new Tree(x + 1, y + 1);
+    new Tree(x + 1, y + 1, { speed: window.$app.$root.$data.setting.speed });
   }
   for (let mashroom of obstaclePts.getElementsByTagName("XmlPoint")) {
     let x = parseInt(mashroom.getAttribute("x"));
     let y = parseInt(mashroom.getAttribute("y"));
-    new Mashroom(x + 1, y + 1);
+    new Mashroom(x + 1, y + 1, { speed: window.$app.$root.$data.setting.speed });
   }
   for (let leaf of paintedPts.getElementsByTagName("XmlPoint")) {
     let x = parseInt(leaf.getAttribute("x"));
     let y = parseInt(leaf.getAttribute("y"));
-    new Leaf(x + 1, y + 1)
+    new Leaf(x + 1, y + 1, { speed: window.$app.$root.$data.setting.speed })
   }
   for (let kara of karaList.getElementsByTagName("XmlKara")) {
     let x = parseInt(kara.getAttribute("x"));
     let y = parseInt(kara.getAttribute("y"));
     let direction = parseInt(kara.getAttribute("direction"));
-    new Kara(x + 1, y + 1, { direction: direction });
+    new Kara(x + 1, y + 1, { direction: direction, speed: window.$app.$root.$data.setting.speed });
   }
 
 }
@@ -194,7 +194,7 @@ export function runUserCode() {
   // Error Handler for syntax error
   window.onerror = function (message, source, lineno, colno, error) {
     syntaxErr = true;
-    errorHandling(userScr, funcName, lineno, colno, error);
+    errorHandling(userScr, funcName, lineno, colno, error, { detailed: window.$app.$root.$data.setting.detailed });
     // Reset window.onerror
     window.onerror = null;
     // prevent the default event handler being called
@@ -210,7 +210,7 @@ export function runUserCode() {
 
   const gameErrorHandler = function (e) {
     if (e.error.stack.includes("GameLogicError" || e.error.stack.includes("GameKernalError"))) {
-      errorHandling(null, null, -1, -1, e.error);
+      errorHandling(null, null, -1, -1, e.error, { detailed: window.$app.$root.$data.setting.detailed });
       e.preventDefault();
     }
   }
@@ -222,7 +222,7 @@ export function runUserCode() {
     try {
       eval(funcName + "();");
     } catch (error) {
-      errorHandling(userScr, funcName, -1, -1, error);
+      errorHandling(userScr, funcName, -1, -1, error, { detailed: window.$app.$root.$data.setting.detailed });
     }
 
     if (getKaraInstance() !== null) {
