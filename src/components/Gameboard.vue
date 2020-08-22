@@ -5,7 +5,7 @@
     </colgroup>
     <tbody>
       <tr v-for="y in height" :key="y">
-        <td v-for="x in width" :key="3*x+y-3" @drop="stopEvaling">
+        <td v-for="x in width" :key="3*x+y-3" @drop="stopEvaling" cellspacing="0">
           <Cell :ref="x+'_'+y" :x="x" :y="y"></Cell>
         </td>
       </tr>
@@ -25,9 +25,10 @@
   user-select: none;
 
   table-layout: fixed;
-  border-collapse: collapse;
   border-spacing: 0;
   text-align: center;
+
+  border: black solid 1px;
 }
 
 .gameboard td:nth-child(2n) {
@@ -40,19 +41,25 @@
 
 .gameboard td {
   border: solid 1px black;
+  width: 25px;
   width: max(2.5vw, 20px);
+  height: 25px;
   height: max(2.5vw, 20px);
 }
 
 .gameboard td div {
+  width: 25px;
   width: max(2.5vw, 20px);
+  height: 25px;
   height: max(2.5vw, 20px);
   position: relative;
 }
 
 .gameboard td div img {
   font-size: max(2vw, 15px);
+  width: 25px;
   width: max(2.5vw, 20px);
+  height: 25px;
   height: max(2.5vw, 20px);
 }
 </style>

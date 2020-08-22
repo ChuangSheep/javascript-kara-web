@@ -188,6 +188,7 @@
 }
 
 .legend {
+  width: 25px;
   width: max(2.5vw, 20px);
   -webkit-user-select: none;
   -moz-user-select: -moz-none;
@@ -335,6 +336,7 @@ export default {
     handleDragStart(e) {
       this.$root.$data.isEvaling = true;
       let data;
+      if (!e.srcElement) e.srcElement = e.target;
       switch (e.srcElement.alt) {
         case "Kara":
           data = new Kara(-1, -1, { init: false });

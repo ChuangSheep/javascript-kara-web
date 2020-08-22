@@ -40,8 +40,7 @@
             id="codeEditor"
             v-model="userCode"
             lang="javascript"
-            height="min(550px, 65vh)"
-            class="widthEditor"
+            class="editor"
             @init="initEditor"
           ></editor>
         </div>
@@ -55,8 +54,10 @@
   margin-left: auto;
 }
 
-.widthEditor {
+.editor {
   width: 65vw !important;
+  height: 550px !important;
+  height: min(550px, 65vh) !important;
 }
 
 @media screen and (max-width: 900px) {
@@ -64,8 +65,10 @@
     margin-left: unset;
   }
 
-  .widthEditor {
+  .editor {
     width: 100% !important;
+    height: 550px !important;
+    height: min(550px, 65vh) !important;
   }
 }
 </style>
