@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Kara",
+    "desc": "Create a new kara instance",
+    "params": [
+      "x: Number - The x position to initialize the kara",
+      "y: Number - The y position to initialize the kara",
+      "args: Object - { direction: Number, zIndex: Number }"
+    ],
+    "return": "Undefined (Class constructor)",
+    "throws": []
+  },
+  {
+    "name": "move",
+    "desc": "Move kara in the current direction for one grid. ",
+    "params": [],
+    "return": "Undefined (void)",
+    "throws": ["GameLogicError - ex. try to move out of bound, walk into trees, push two mashrooms at once, etc."]
+  },
+  {
+    "name": "turnRight",
+    "desc": "Turn the kara 90 degrees right",
+    "params": [],
+    "return": "Undefined (void)",
+    "throws": []
+  },
+  {
+    "name": "turnLeft",
+    "desc": "Turn the kara 90 degrees left",
+    "params": [],
+    "return": "Undefined (void)",
+    "throws": []
+  },
+  {
+    "name": "putLeaf",
+    "desc": "Put leaf on the current grid where kara stands",
+    "params": [],
+    "return": "Undefined (void)",
+    "throws": ["GameLogicError - ex. there is already a leaf on the current grid"]
+  },
+  {
+    "name": "takeLeaf",
+    "desc": "Take leaf from the current grid where kara stands",
+    "params": [],
+    "return": "Undefined (void)",
+    "throws": ["GameLogicError - ex. there is no leaf on the current grid"]
+  },
+  {
+    "name": "onLeaf",
+    "desc": "Indicates whether kara is on a leaf or not",
+    "params": [],
+    "return": "Boolean - if kara is on leaf, return true",
+    "throws": []
+  },
+  {
+    "name": "treeFront",
+    "desc": "Indicates whether there is a tree in front of kara",
+    "params": [],
+    "return": "Boolean - if a tree is in front of kara, return true",
+    "throws": []
+  },
+  {
+    "name": "treeLeft",
+    "desc": "Indicates whether there is a tree on the left side of kara",
+    "params": [],
+    "return": "Boolean - if a tree is on the left side of kara, return true",
+    "throws": []
+  },
+  {
+    "name": "treeRight",
+    "desc": "Indicates whether there is a tree on the right side of kara",
+    "params": [],
+    "return": "Boolean - if a tree is on the right side of kara, return true",
+    "throws": []
+  },
+  {
+    "name": "mashroomFront",
+    "desc": "Indicates whether there is a mashroom in front of kara",
+    "params": [],
+    "return": "Boolean - if a mashroom is in front of kara, return true",
+    "throws": []
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "name": "getKaraInstance",
+    "desc": "Get the kara instance on the game board, if not found, then return null",
+    "params": [],
+    "return": "Object - class Kara ",
+    "throws": []
+  },
+  {
+    "name": "about",
+    "desc": "Get information about this software.",
+    "params": [],
+    "return": "String - Information about this software",
+    "throws": []
+  }
+]

@@ -249,12 +249,24 @@ class Kara extends GameObject {
   }
 
   _putLeaf() {
+    let hasLeaf = false;
+    for (let obj of window.$app.$root.$data.board[this.x - 1][this.y - 1]) {
+      if (obj.type === 'Leaf') hasLeaf = true;
+    }
+    if (hasLeaf) throw new GameLogicError(`Kara cannot put a leaf on this grid [${this.x},${this.y}] because there is already a leaf here. `, [this.x, this.y]);
     new Leaf(this.x, this.y);
   }
 
   putLeaf() {
     if (window.$app.$root.$data.currentKaraX === -1) window.$app.$root.$data.currentKaraX = this.x.valueOf();
     if (window.$app.$root.$data.currentKaraY === -1) window.$app.$root.$data.currentKaraY = this.y.valueOf();
+
+    let hasLeaf = false;
+    for (let obj of window.$app.$root.$data.currentBoard[window.$app.$root.$data.currentKaraX - 1][window.$app.$root.$data.currentKaraY - 1]) {
+      if (obj.type === 'Leaf') hasLeaf = true;
+    }
+    if (hasLeaf) throw new GameLogicError(`Kara cannot put a leaf on this grid [${this.x},${this.y}] because there is already a leaf here. `, [this.x, this.y]);
+
     window.$app.$root.$data.currentBoard[window.$app.$root.$data.currentKaraX - 1][window.$app.$root.$data.currentKaraY - 1].push({ type: "Leaf" });
     this.processTimeoutCount += 1;
     window.$app.$root.$data.timeoutPool.push(window.setTimeout(() => {
